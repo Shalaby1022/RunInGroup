@@ -5,15 +5,12 @@ using RunInGroup.Models;
 
 namespace RunGroopWebApp.Data
 {
-    public class Seed
+    public class Seeding
     {
         public static void SeedData(IApplicationBuilder applicationBuilder)
         {
-            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<RunDbContext>();
-
-                context.Database.EnsureCreated();
+         
+                RunDbContext context = applicationBuilder.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<RunDbContext>();
 
                 if (!context.Clubs.Any())
                 {
@@ -167,5 +164,5 @@ namespace RunGroopWebApp.Data
         //            await userManager.CreateAsync(newAppUser, "Coding@1234?");
         //            await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
                 }
-            }
+            
       
