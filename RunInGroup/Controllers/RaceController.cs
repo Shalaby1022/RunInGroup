@@ -18,7 +18,7 @@ namespace RunInGroup.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var races = _raceRepository.GetAllRacesAsync();
+            var races = await _raceRepository.GetAllRacesAsync();
             return View(races);
         }
 
