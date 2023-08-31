@@ -3,8 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using RunGroopWebApp.Data;
 using RunInGroup.Data;
-
-
+using RunInGroup.Data.Interface;
+using RunInGroup.Repository;
 
 namespace RunInGroup
 {
@@ -23,18 +23,17 @@ namespace RunInGroup
             });
 
 
-
+            // Add Repositories
+            builder.Services.AddScoped<IRaceRepository, RaceRepository>();
+            builder.Services.AddScoped<IClubRepository, ClubRepository>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+     
+
+
 
             var app = builder.Build();
-
-            if (args.Length == 1 && args[0].ToLower() == "seeddata")
-            {
-              
-                Seed.SeedData(app);
-            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -50,6 +49,10 @@ namespace RunInGroup
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+            Seeding.SeedData(app);
+
 
             app.Run();
         }
