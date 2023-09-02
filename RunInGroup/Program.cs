@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using RunGroopWebApp.Data;
+using RunGroopWebApp.Helpers;
+using RunGroopWebApp.Services;
 using RunInGroup.Data;
 using RunInGroup.Data.Interface;
 using RunInGroup.Repository;
+
 
 namespace RunInGroup
 {
@@ -22,14 +23,20 @@ namespace RunInGroup
                 
             });
 
+            builder.Services.AddControllersWithViews();
 
             // Add Repositories
             builder.Services.AddScoped<IRaceRepository, RaceRepository>();
             builder.Services.AddScoped<IClubRepository, ClubRepository>();
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
-     
+            builder.Services.AddScoped<IPhotoService , PhotoService>();
+           
+
+            builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
+
+
 
 
 
