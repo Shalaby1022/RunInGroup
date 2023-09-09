@@ -50,9 +50,19 @@ namespace RunInGroup.Repository
             var club = await _context.Clubs.Include(c => c.Address).FirstOrDefaultAsync(c => c.Id == id);
             return club;
         }
+        public async Task<Club?> GetClubByIdAsyncNoTracking(int id)
+        {
+            if (id == 0) // I have leant this Tip to avoid operator overloading so i'm using "Is" not "=="
+            {
+                return null;
+            }
+
+            var club = await _context.Clubs.Include(c => c.Address).AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+            return club;
+        }
 
 
-        public bool save()
+            public bool save()
         {
             _context.SaveChanges();
             return true;

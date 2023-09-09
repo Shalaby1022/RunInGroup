@@ -41,6 +41,16 @@ namespace RunInGroup.Repository
             var race = await _context.Races.Include(r => r.Address).FirstOrDefaultAsync(r => r.Id == id);
             return race;
         }
+        public async Task<Race> GetRaceByIdAsyncNoTracking(int id)
+        {
+            if (id <= 0)
+            {
+                return null; // Or you can throw an exception here.
+            }
+
+            var race = await _context.Races.Include(r => r.Address).AsNoTracking().FirstOrDefaultAsync(r => r.Id == id);
+            return race;
+        }
 
 
         public async Task<IEnumerable<Race>> GetRacesByCityAsync(string city)

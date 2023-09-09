@@ -5,6 +5,7 @@ namespace RunInGroup.Models
 {
     public class AppUser : IdentityUser
     {
+
         public int? Pace { get; set; }
         public int? Mileage { get; set; }
         public string? ProfileImageUrl { get; set; }

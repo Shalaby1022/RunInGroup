@@ -6,6 +6,8 @@ namespace RunInGroup.Data.Interface
     {
         Task<IEnumerable<Race>> GetAllRacesAsync();
         Task<Race> GetRaceByIdAsync(int id);
+        Task<Race> GetRaceByIdAsyncNoTracking(int id);
+
         Task<IEnumerable<Race>> GetRacesByCityAsync(string city);
 
         bool Add(Race race);
