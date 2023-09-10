@@ -88,6 +88,7 @@ namespace RunInGroup.Controllers
                 catch (Exception ex)
                 {
                     // Log the exception for debugging
+                    // Log the exception for debugging
                     _logger.LogError(ex, "An error occurred while processing the request.");
                     ModelState.AddModelError("", "An error occurred while processing the request.");
                 }
