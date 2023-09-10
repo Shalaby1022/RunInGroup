@@ -39,8 +39,8 @@ namespace RunInGroup
             builder.Services.AddScoped<IClubRepository, ClubRepository>();
 
             // Add services to the container.
-            builder.Services.AddScoped<IPhotoService , PhotoService>();
-           
+            builder.Services.AddScoped<IPhotoService, PhotoService>();
+
 
             builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
@@ -63,13 +63,20 @@ namespace RunInGroup
 
             app.UseAuthorization();
 
+
+            app.MapControllerRoute(
+                name: "account",
+                pattern: "Account/{action=Login}/{id?}",
+                defaults: new { controller = "Account" });
+
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-           // Seeding.SeedData(app);
-           await Seeding.SeedUsersAndRolesAsync(app);
+            // Seeding.SeedData(app);
+            await Seeding.SeedUsersAndRolesAsync(app);
 
 
 
