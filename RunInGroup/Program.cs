@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RunGroopWebApp.Data;
 using RunGroopWebApp.Helpers;
 using RunGroopWebApp.Services;
 using RunInGroup.Data;
 using RunInGroup.Data.Interface;
+using RunInGroup.Models;
 using RunInGroup.Repository;
 
 
@@ -11,7 +14,7 @@ namespace RunInGroup
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +23,14 @@ namespace RunInGroup
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-                
             });
+            //IdentityFrameWork
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<RunDbContext>();
+            builder.Services.AddMemoryCache();
+            builder.Services.AddSession();
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
 
             builder.Services.AddControllersWithViews();
 
@@ -34,6 +43,7 @@ namespace RunInGroup
            
 
             builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
 
 
 
@@ -58,7 +68,9 @@ namespace RunInGroup
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-            Seeding.SeedData(app);
+           // Seeding.SeedData(app);
+           await Seeding.SeedUsersAndRolesAsync(app);
+
 
 
             app.Run();
