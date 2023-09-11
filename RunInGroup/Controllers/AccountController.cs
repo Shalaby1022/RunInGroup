@@ -107,7 +107,7 @@ namespace RunInGroup.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return View("Index" , "Race");
+            return RedirectToAction("Index" , "Home");
         }
 
 

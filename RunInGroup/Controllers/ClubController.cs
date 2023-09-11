@@ -17,12 +17,14 @@ namespace RunInGroup.Controllers
         private readonly IClubRepository _clubRepository;
         private readonly IPhotoService _photoService;
         private readonly ILogger<ClubController> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ClubController(IClubRepository clubRepository, IPhotoService photoService, ILogger<ClubController> logger)
+        public ClubController(IClubRepository clubRepository, IPhotoService photoService, ILogger<ClubController> logger , IHttpContextAccessor httpContextAccessor)
         {
             _clubRepository = clubRepository;
-            _photoService = photoService;  //<<<<<---THIS ONE 
+            _photoService = photoService;  
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index()
@@ -43,8 +45,12 @@ namespace RunInGroup.Controllers
         public IActionResult Create()
         {
 
-            var createClubViewModel = new CreateClubViewModel();
-            return View(createClubViewModel);
+            var CurUSerID = _httpContextAccessor.HttpContext?.User.GetUserId();
+            var createclubviewmodel = new CreateClubViewModel()
+            {
+                AppUserId = CurUSerID,
+            };
+            return View(createclubviewmodel);
         }
 
         [HttpPost]
@@ -69,6 +75,7 @@ namespace RunInGroup.Controllers
                             Title = clubVM.Title,
                             Description = clubVM.Description,
                             Image = result.Url.ToString(),
+                            AppUserId = clubVM.AppUserId,
                             Address = new Address
                             {
                                 City = clubVM.Address.City,
