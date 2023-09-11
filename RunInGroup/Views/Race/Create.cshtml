@@ -2,6 +2,8 @@
 @model RaceCreateViewModel
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
+
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">

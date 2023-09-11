@@ -16,9 +16,12 @@
                     <p class="card-text"><strong>Location:</strong>@club.Address.City , @club.Address.State</p>
 
                     <a asp-controller="Club" asp-action="Details" asp-route-id="@club.Id" class="btn btn-primary">View Details</a>
-                    <a asp-controller="Club" asp-action="Edit" asp-route-id="@club.Id" class="btn btn-secondary">Edit</a>
-                    <a asp-controller="Club" asp-action="Delete" asp-route-id="@club.Id" class="btn btn-danger" >Delete</a>
 
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <a asp-controller="Club" asp-action="Edit" asp-route-id="@club.Id" class="btn btn-secondary">Edit</a>
+                        <a asp-controller="Club" asp-action="Delete" asp-route-id="@club.Id" class="btn btn-danger" >Delete</a>
+                    }
                 </div>
             </div>
         </div>
