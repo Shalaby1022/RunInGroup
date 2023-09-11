@@ -37,6 +37,7 @@ namespace RunInGroup
             // Add Repositories
             builder.Services.AddScoped<IRaceRepository, RaceRepository>();
             builder.Services.AddScoped<IClubRepository, ClubRepository>();
+            builder.Services.AddScoped<IDashboardRepository , DashboradRepository>();
 
             // Add services to the container.
             builder.Services.AddScoped<IPhotoService, PhotoService>();
@@ -57,10 +58,10 @@ namespace RunInGroup
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
