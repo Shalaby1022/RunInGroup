@@ -38,6 +38,7 @@ namespace RunInGroup
             builder.Services.AddScoped<IRaceRepository, RaceRepository>();
             builder.Services.AddScoped<IClubRepository, ClubRepository>();
             builder.Services.AddScoped<IDashboardRepository , DashboradRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             // Add services to the container.
             builder.Services.AddScoped<IPhotoService, PhotoService>();
