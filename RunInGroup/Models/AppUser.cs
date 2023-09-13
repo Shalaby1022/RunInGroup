@@ -11,8 +11,12 @@ namespace RunInGroup.Models
         public int? Mileage { get; set; }
         [ForeignKey("Address")]
         public int? AddressId { get; set; }
-        
+        public string City { get; set; }
+        public string State { get; set; }
+        public string? ProfileImageUrl { get; set; }
 
+        
+        //public IFormFile Image { get; set; }
         //navigation property
         public Address? Address { get; set; }
         public ICollection<Club> Clubs { get; set; }
