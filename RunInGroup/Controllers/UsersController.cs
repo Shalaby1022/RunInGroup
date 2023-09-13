@@ -55,16 +55,14 @@ namespace RunInGroup.Controllers
                     Mileage = user.Mileage
                 };
 
-                // Add the user details view model to the list
-                var usersDetailsViewModels = new List<UsersDetailsViewModel> { userdetailsviewmodel };
-
-                // Return the view with the populated user details view model list
-                return View(usersDetailsViewModels);
+                // Return the view with the populated user details view model
+                return View(userdetailsviewmodel);
             }
 
             // Handle the case where the user with the provided id was not found
             return NotFound(); // You can return a 404 page or handle it as needed.
         }
+
 
 
     }
