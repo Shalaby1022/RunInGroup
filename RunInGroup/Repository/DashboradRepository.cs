@@ -16,7 +16,31 @@ namespace RunInGroup.Repository
             _contextAccessor = httpContextAccessor;
         }
 
-        public IHttpContextAccessor HttpContextAccessor { get; }
+        public bool save()
+        {
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool Update(AppUser appUser)
+        {
+            _context.Update(appUser);
+            return save();
+
+        }
+        public async Task<AppUser> GetClubByIdAsyncNoTracking(string id)
+        {
+            var users =  await _context.Users.AsNoTracking().FirstOrDefaultAsync();
+            return users;
+
+        }
+
+        public async Task<AppUser> GetUserId(string id)
+        {
+            var users = await _context.Users.FindAsync(id);
+            return users;
+
+        }
 
         async Task<List<Club>> IDashboardRepository.GetAllClubsAsync()
         {
